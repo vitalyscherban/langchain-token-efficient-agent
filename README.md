@@ -64,6 +64,20 @@ triage ──> agent ──(tool calls)──> tools ──> compact ──┐
 > compacted copy is *appended* instead and nothing shrinks — a silent failure the
 > test suite pins down (`test_tool_payload_is_compacted`).
 
+| Module | Stage | Responsibility |
+|---|---|---|
+| `agent/log_pruner.py` | 1. Prune | Regex-extract failures/frames from the log; denylist-filter the diff |
+| `agent/windows.py`, `agent/tools.py` | 3. Window | `file_outline` / `read_source_window` / `grep_symbol` — locations and slices, never whole files |
+| `agent/context.py` | 4. Compact | Trim history to budget, digest tool payloads, strip stale results, fold old turns |
+| `agent/cache.py` | 4. Cache | Exact-match `SQLiteCache` + static-first system prompt for provider prefix caching |
+| `agent/retrieval.py` | 5. Retrieve | Split → dedupe → relevance-filter → extract pipeline for any vector retriever |
+| `agent/graph.py` | — | Wires every stage into the LangGraph `StateGraph` (see diagram above) |
+| `agent/config.py` | — | All tunable knobs (`TokenBudget`) and the diff denylist |
+
+See **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** for the full design doc:
+state schema, turn-by-turn control flow, a `mermaid` graph diagram, the
+retrieval pipeline, and how to extend the agent to a new CI runner or tool.
+
 ## Usage
 
 ```bash
