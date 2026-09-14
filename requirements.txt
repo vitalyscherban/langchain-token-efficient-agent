@@ -1,0 +1,12 @@
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-text-splitters>=0.3.0
+langchain-openai>=0.2.0
+langgraph>=0.2.0
+tiktoken>=0.7.0
+pydantic>=2.7.0
+pytest>=8.0.0
+
+# Optional: persistent SQLite response cache + the retrieval compression stage.
+# Everything else degrades gracefully without it (in-memory cache instead).
+langchain-community>=0.3.0
