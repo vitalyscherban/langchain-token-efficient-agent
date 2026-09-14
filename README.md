@@ -46,12 +46,14 @@ not 3k. Compacting at the moment of production beats trimming later.
 
 ## Architecture
 
-```
-triage ──> agent ──(tool calls)──> tools ──> compact ──┐
-             ^                                          │
-             └──────────────────────────────────────────┘
-             │
-             └──(no tool calls)──> END
+```mermaid
+flowchart LR
+    START([start]) --> triage
+    triage --> agent
+    agent -- tool_calls present --> tools
+    agent -- no tool_calls --> END([END])
+    tools --> compact
+    compact --> agent
 ```
 
 * **`triage`** — zero-token stage. 40k lines in, ~60 lines out.
