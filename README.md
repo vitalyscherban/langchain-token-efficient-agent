@@ -80,6 +80,10 @@ See **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** for the full design doc:
 state schema, turn-by-turn control flow, a `mermaid` graph diagram, the
 retrieval pipeline, and how to extend the agent to a new CI runner or tool.
 
+See **[docs/AZURE_ARCHITECTURE.md](docs/AZURE_ARCHITECTURE.md)** for hosting
+in Azure: Container Apps, Azure OpenAI, Redis cache, network topology, CI/CD
+integration, observability, and cost model.
+
 ## Usage
 
 ```bash
